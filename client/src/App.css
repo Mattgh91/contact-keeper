@@ -213,6 +213,10 @@ img {
   margin-right: 0.2rem;
 }
 
+.capitalise {
+  text-transform: capitalize;
+}
+
 .badge {
   font-size: 0.8rem;
   padding: 0.2rem 0.7rem;
