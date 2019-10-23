@@ -1,6 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import authContext from '../../context/auth/AuthContext';
+import alertContext from '../../context/alert/AlertContext';
 
-const Login = () => {
+const Login = props => {
+    const AlertContext = useContext(alertContext);
+    const AuthContext = useContext(authContext);
+
+    const { setAlert } = AlertContext;
+    const { loginUser, error, clearErrors, isAuthenticated } = AuthContext;
+
+    useEffect(() => {
+        if (isAuthenticated) {
+            props.history.push('/');
+        }
+
+        if (error === 'Invalid credentials') {
+            setAlert(error, 'danger');
+            clearErrors();
+        }
+        // eslint-disable-next-line
+    }, [error, isAuthenticated, props.history]);
+
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -17,7 +37,15 @@ const Login = () => {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log('Login submit: ', e);
+
+        if (email === '' || password === '') {
+           setAlert('Please complete all fields', 'danger');
+        } else {
+            loginUser({
+                email,
+                password,
+            });
+        }
     };
 
     return (
@@ -34,6 +62,7 @@ const Login = () => {
                         name="email"
                         value={email}
                         onChange={onChange}
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -43,6 +72,7 @@ const Login = () => {
                         name="password"
                         value={password}
                         onChange={onChange}
+                        required
                     />
                 </div>
                 <input type="submit" value="Login" className="btn btn-primary btn-block" />
