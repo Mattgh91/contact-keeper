@@ -19,8 +19,10 @@ const Navbar = ({ title, icon }) => {
         <>
             <li>Hello { user && user.name }</li>
             <li>
-                <a href="#" onClick={onLogout}> <i className="fas fa-sign-out-alt"> </i>
-                <span className="hide-sm">Logout</span></a>
+                <a href="#logout" onClick={onLogout}>
+                    <i className="fas fa-sign-out-alt"> </i>
+                    <span className="hide-sm">Logout</span>
+                </a>
             </li>
         </>
     );
