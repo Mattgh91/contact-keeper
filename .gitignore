@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 
 /config/default.json
-/config/productions.json
+/config/production.json
